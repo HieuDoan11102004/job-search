@@ -1,121 +1,211 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import Loading from '@/app/components/loading/loading';
 import style from './Header.module.css';
-import Input from '@/app/components/input';
 import clsx from 'clsx';
-import Button from '@/app/components/button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faListUl, faLocationDot, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faCaretDown, faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import { useMouseLeaveDropdown, useClickOutside } from '@/app/components/closeDropdown';
+import NotificationHeader from '@/app/Layout/Notification/notificationHeader';
+import dropdownData from '@/app/data/headerSection';
 
 export default function Header() {
     const [isLoading, setIsLoading] = useState(false);
-    const [openCategory, isCategoryOpen] = useState(false);
+    const [cvDropdown, setCvDropdown] = useState(false);
+    const [toolsDropdown, setToolsDropdown] = useState(false);
+    const [userDropdown, setUserDropdown] = useState(false);
+    const [login, setLogin] = useState(true);
+    const router = useRouter();
 
-    let listOfPopularJob = ['Marketing', 'Accountant', 'IT Hardware', 'IT Software', 'Teacher', 'Lawyer', 'Healthcare'];
-    let listOfOtherJob = ['Media', 'KOL Mananger', 'Security', 'Telecommunications', 'Stock', 'Secretary'];
+    const createCVRef = useMouseLeaveDropdown(() => {
+        setCvDropdown(false);
+    });
 
-    // useEffect(() => {
-    //     function handleClickOutside(event) {
-    //         if ()
-    //     }
-    // }, [])
+    const createToolsRef = useMouseLeaveDropdown(() => {
+        setToolsDropdown(false);
+    });
+
+    const creatUserRef = useClickOutside(() => {
+        setUserDropdown(false);
+    });
+
+    const handleLogoutClick = (e) => {
+        e.stopPropagation();
+        console.log('Logout clicked');
+        setLogin(false);
+        router.push('/auth/login');
+    };
 
     return (
         <>
             {isLoading && <Loading />}
-            <header className={style.header}>
-                <Link href="/" className="text-[3rem] text-black cursor-pointer font-semibold pr-[2rem] select-none">
-                    <p style={{ fontFamily: 'iconFont, sans-serif' }}>BotCV</p>
-                </Link>
+            <header id="header">
+                <div className={style.header}>
+                    <div className="flex mx-auto px-[80px] max-w-[1440px] w-full h-full justify-between">
+                        <div className="flex gap-[5px] items-center cursor-pointer">
+                            <Link
+                                href="/"
+                                className="text-[3rem] text-black cursor-pointer font-semibold pr-[2rem] select-none mr-3"
+                            >
+                                <p style={{ fontFamily: 'iconFont, sans-serif' }}>BotCV</p>
+                            </Link>
 
-                <div className="w-[840px] h-[50px] rounded-[15px] border-2 border-[#e8e8e8]">
-                    <form className="flex w-full h-full py-[6px] px-[10px] select-none">
-                        <input
-                            type="text"
-                            className="flex-1 text-[14px] border-none outline-none"
-                            style={{ padding: '0 8px 0 8px' }}
-                            placeholder="Job position or company name..."
-                        />
-
-                        <div className={style.divider}></div>
-
-                        <div className="w-[25%] flex items-center cursor-pointer rounded-[20px] relative px-[8px]">
-                            <div className=" flex items-center gap-[10px] hover:bg-[#f2f4f5] px-[10px] flex-[1] rounded-[20px] h-full">
-                                <FontAwesomeIcon icon={faListUl} className="w-5 h-5" />
-                                <span className="text-[14px]">Category</span>
-                            </div>
                             <div
-                                className="w-full absolute max-h-[300px] bg-white z-[1] pb-5 left-0 rounded-[5px] overflow-y-auto"
+                                className={style.divider_search}
                                 style={{
-                                    boxShadow: 'rgba(0, 0, 0, 0.1) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 4px 11px',
-                                    top: 'calc(100% + 8px)',
+                                    borderColor: 'gray',
+                                }}
+                            ></div>
+
+                            <div
+                                className={clsx(style.items, 'px-[20px] py-[10px]')}
+                                ref={createCVRef}
+                                onMouseEnter={() => {
+                                    setCvDropdown(true);
                                 }}
                             >
-                                <div className="flex flex-col pt-5 cursor-default">
-                                    <div className="flex items-center text-[var(--text-color)] text-[11px] uppercase font-semibold px-[12px]">
-                                        <span>popular job</span>
-                                        <div className="flex-[1_1_auto] opacity-[90] ml-[2px]">
-                                            <hr style={{ width: '98%', marginLeft: 'auto' }} />
-                                        </div>
+                                Tạo CV
+                                <FontAwesomeIcon icon={faCaretDown} className="ml-3 w-6 h-6" />
+                                {cvDropdown && (
+                                    <div className={clsx(style.dropDownContainer, style.dropDownLeft)}>
+                                        <div className={style.caret} />
+                                        {dropdownData.dropdowns
+                                            .find((dropdown) => dropdown.id === 'createCV')
+                                            .items.map((section, index) => (
+                                                <ul key={index} className={`font-[500]`}>
+                                                    {section.section && (
+                                                        <li className="px-7 py-3 text-[var(--primary-color)] text-[14px] font-semibold">
+                                                            <span>{section.section}</span>
+                                                        </li>
+                                                    )}
+                                                    {section.items.map((item) => (
+                                                        <li key={item.id} className={style.dropdownItem}>
+                                                            <Link href={item.href} className="flex items-center w-full">
+                                                                <Image
+                                                                    src={item.icon}
+                                                                    width={24}
+                                                                    height={24}
+                                                                    priority
+                                                                    className="object-contain mr-4"
+                                                                    alt={item.title}
+                                                                />
+                                                                <span>{item.title}</span>
+                                                            </Link>
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            ))}
                                     </div>
-                                    <ul className="mt-2 cursor-pointer w-full text-[12px] font-[500] whitespace-nowrap overflow-hidden">
-                                        {listOfPopularJob.map((job) => (
-                                            <li className="flex py-[8px] px-[12px] block w-full hover:bg-[#ccc]/20">
-                                                <label className="flex items-center cursor-pointer w-full">
-                                                    <input
-                                                        type="checkbox"
-                                                        className="w-6 h-6 rounded-[2px] accent-black cursor-pointer"
-                                                    />
-                                                    <span className="ml-3 select-none">{job}</span>
-                                                </label>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                                <div className="flex flex-col pt-5 cursor-default">
-                                    <div className="flex items-center text-[var(--text-color)] text-[11px] uppercase font-semibold px-[12px]">
-                                        <span>Other job</span>
-                                        <div className="flex-[1_1_auto] opacity-[90] ml-[2px]">
-                                            <hr style={{ width: '98%', marginLeft: 'auto' }} />
-                                        </div>
-                                    </div>
-
-                                    <ul className="mt-2 cursor-pointer w-full text-[12px] font-[500] whitespace-nowrap overflow-hidden">
-                                        {listOfOtherJob.map((job) => (
-                                            <li className="flex py-[8px] px-[12px] block w-full hover:bg-[#ccc]/20">
-                                                <label className="flex items-center cursor-pointer w-full">
-                                                    <input
-                                                        type="checkbox"
-                                                        className="w-6 h-6 rounded-[2px] accent-black cursor-pointer"
-                                                    />
-                                                    <span className="ml-3 select-none">{job}</span>
-                                                </label>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
+                                )}
                             </div>
+
+                            {/* Dropdown Công cụ */}
+                            <div
+                                className={clsx(style.items, 'px-[20px] py-[10px]')}
+                                ref={createToolsRef}
+                                onMouseEnter={() => setToolsDropdown(true)}
+                            >
+                                Công cụ
+                                <FontAwesomeIcon icon={faCaretDown} className="ml-3 w-6 h-6" />
+                                {toolsDropdown && (
+                                    <div className={clsx(style.dropDownContainer, style.dropDownLeft)}>
+                                        <div className={style.caret} />
+                                        {dropdownData.dropdowns
+                                            .find((dropdown) => dropdown.id === 'tools')
+                                            .items.map((section, index) => (
+                                                <ul key={index} className="font-[500]">
+                                                    {section.items.map((item) => (
+                                                        <li key={item.id} className={style.dropdownItem}>
+                                                            <Link href={item.href} className="flex items-center w-full">
+                                                                <Image
+                                                                    src={item.icon}
+                                                                    width={24}
+                                                                    height={24}
+                                                                    priority
+                                                                    className="object-contain mr-4"
+                                                                    alt={item.title}
+                                                                />
+                                                                <span>{item.title}</span>
+                                                            </Link>
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            ))}
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Cẩm nang nghề nghiệp */}
+                            <div className={clsx(style.items, 'px-[20px] py-[10px]')}>Cẩm nang nghề nghiệp</div>
                         </div>
 
-                        <div className={style.divider}></div>
+                        <div className="flex gap-[15px] items-center">
+                            {/* Đăng nhập, đăng ký */}
+                            {login ? (
+                                <>
+                                    <NotificationHeader />
 
-                        <div className="w-[20%] flex items-center cursor-pointer rounded-[20px] relative px-[8px]">
-                            <div className=" flex items-center gap-[10px] hover:bg-[#f2f4f5] px-[10px] flex-[1] rounded-[20px] h-full">
-                                <FontAwesomeIcon icon={faLocationDot} className="w-5 h-5" />
-                                <span className="text-[14px]">Location</span>
-                            </div>
+                                    <div
+                                        className={style.items}
+                                        ref={creatUserRef}
+                                        onClick={() => setUserDropdown(true)}
+                                    >
+                                        <div className="w-[40px] h-[40px] relative">
+                                            <div className={style.userAvatar}>
+                                                <img
+                                                    src="/img/header/avatar/default-ava.jpg"
+                                                    alt="user-avatar"
+                                                    className="w-full h-full"
+                                                />
+                                                <div className={style.userArrow}>
+                                                    <FontAwesomeIcon icon={faAngleDown} />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {userDropdown && (
+                                            <div className={clsx(style.dropDownContainer, style.dropDownCenter)}>
+                                                <div className={clsx(style.caret, style.caretCenter)} />
+                                                <ul className="font-[500]">
+                                                    <li className={style.dropdownItem}>
+                                                        <div className="w-full h-full">Thông tin tài khoản</div>
+                                                    </li>
+                                                    <li className={style.dropdownItem}>
+                                                        <div className="w-full h-full" onClick={handleLogoutClick}>
+                                                            Đăng xuất
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        )}
+                                    </div>
+                                </>
+                            ) : (
+                                <>
+                                    <Link href="./auth/login" className="px-8 py-4 hover:text-[var(--primary-color)]">
+                                        <p className="text-[14px] font-semibold">Đăng nhập</p>
+                                    </Link>
+
+                                    <Link
+                                        href="./auth/register"
+                                        className="px-8 py-4 border-1 border-[var(--primary-color)] rounded-[20px]"
+                                    >
+                                        <p className="text-[14px] font-semibold text-[var(--primary-color)]">Đăng ký</p>
+                                    </Link>
+                                </>
+                            )}
+
+                            <Link
+                                href="#"
+                                className="ml-5 px-8 py-4 rounded-[10px] bg-[var(--primary-color)] hover:opacity-80"
+                            >
+                                <p className="text-[14px] font-semibold text-white">Đăng tin tuyển dụng</p>
+                            </Link>
                         </div>
-
-                        <div className={style.divider}></div>
-
-                        <Button type="button" variant="search" className="py-4 px-6 ml-4">
-                            <FontAwesomeIcon icon={faMagnifyingGlass} className="w-5 h-5" />
-                        </Button>
-                    </form>
+                    </div>
                 </div>
             </header>
         </>

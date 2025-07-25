@@ -57,9 +57,9 @@ export default function Register() {
 
                         <div className="absolute flex right-[4rem] translate-y-[75%] uppercase opacity-80">
                             <h1 className="text-white text-8xl font-bold animated-leftToRight">
-                                Hello
+                                Xin
                                 <br />
-                                friend!
+                                Chào!
                             </h1>
                             <div className="ml-[4rem] bg-white block w-[2rem]"></div>
                         </div>
@@ -69,14 +69,14 @@ export default function Register() {
                         {/* <form onSubmit={handleLogin} noValidate> */}
                         <form onSubmit={handleRegister} noValidate>
                             <div className="w-full flex flex-col">
-                                <h1 className="text-6xl font-extrabold mb-3 uppercase">Register on BotCV</h1>
+                                <h1 className="text-6xl font-extrabold mb-3 uppercase">Đăng ký tài khoản</h1>
                                 <div className="mt-7 mb-2 flex flex-col">
-                                    <span className="mb-4 font-[600]">Username</span>
+                                    <span className="mb-4 font-[600]">Tên tài khoản</span>
                                     <Input
                                         type="text"
                                         name="username"
                                         onChange={handleInputChange}
-                                        placeholder="Enter your username"
+                                        placeholder="Tên tài khoản của bạn"
                                         error={errors.username}
                                         variant="register_login"
                                         errorClassName={'pt-[4px] text-[1rem] min-h-[1.9rem]'}
@@ -87,58 +87,58 @@ export default function Register() {
                                         type="email"
                                         name="email"
                                         onChange={handleInputChange}
-                                        placeholder="Enter your email"
+                                        placeholder="Email của bạn"
                                         error={errors.email}
                                         variant="register_login"
                                         errorClassName={'pt-[4px] text-[1rem] min-h-[1.9rem]'}
                                     />
 
-                                    <span className="mb-4 font-[600]">Password</span>
+                                    <span className="mb-4 font-[600]">Mật khẩu</span>
                                     <Input
                                         type="password"
                                         name="password"
                                         onChange={handleInputChange}
-                                        placeholder="Enter your password"
+                                        placeholder="Mật khẩu của bạn"
                                         error={errors.password}
                                         variant="register_login"
                                         errorClassName={'pt-[4px] text-[1rem] min-h-[1.9rem]'}
                                         hide="true"
                                     />
                                     <ul className="text-[12px] text-[var(--text-color)] font-semibold mt-1 mb-2">
-                                        <li>Password needs above 6 letters.</li>
-                                        <li>
-                                            Password must include uppercase letters, lowercase letters, and numbers.
-                                        </li>
+                                        <li>Mật khẩu cần ít nhất 6 ký tự</li>
+                                        <li>Mật khẩu cần bao gồm chữ cái viết hoa, viết thường và số</li>
                                     </ul>
 
-                                    <span className="mb-4 font-[600] ">Confirm Password</span>
+                                    <span className="mb-4 font-[600] ">Xác nhận mật khẩu</span>
                                     <Input
                                         type="password"
                                         name="confirmPassword"
                                         onChange={handleInputChange}
-                                        placeholder="Enter your password again"
+                                        placeholder="Nhập lại mật khẩu của bạn"
                                         error={errors.confirmPassword}
                                         variant="register_login"
                                         hide="true"
                                     />
                                     <p className="mt-5 text-[14px] text-[#6f7882]">
-                                        Oh! Already have an account?{' '}
+                                        Oh! Bạn đã có sẵn tài khoản rồi?{' '}
                                         <Link href="./login" className="font-semibold text-black underline">
-                                            Let's sign in.
+                                            Hãy đăng nhập nào.
                                         </Link>
                                     </p>
                                     <p className="mt-3 text-[#6f7882] text-[14px]">
-                                        By creating this account, you agree to our{' '}
+                                        Với việc tạo tài khoản, bạn đã đồng ý với{' '}
                                         <Link href="#" className="font-semibold text-black underline">
-                                            Term of Service
+                                            Điều khoản dịch vụ
                                         </Link>{' '}
-                                        and{' '}
+                                        và{' '}
                                         <Link href="#" className="font-semibold text-black underline">
-                                            Privacy Policy.
+                                            Chính sách bảo mật.
                                         </Link>
                                     </p>
 
-                                    <Button variant="auth">Register — Start Your Journey From Today</Button>
+                                    <Button variant="auth" className="my-8">
+                                        Đăng ký — Bắt đầu cuộc hành trình của bạn từ hôm nay!
+                                    </Button>
                                 </div>
                             </div>
                         </form>

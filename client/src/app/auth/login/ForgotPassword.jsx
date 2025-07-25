@@ -6,7 +6,6 @@ import Button from '@/app/components/button';
 import Input from '@/app/components/input';
 import validateField from '@/app/components/validatedInput';
 import showToast from '@/app/components/Toastify.js';
-import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
@@ -73,7 +72,7 @@ export default function ForgotPassword({ setIsForgotPassWord }) {
         if (!emailError) {
             console.log('Sending OTP to:', form.email);
             console.log('Calling showToast');
-            showToast('success', 'OTP sent! Please check your email.');
+            showToast('success', 'OTP đã gửi! Kiểm tra email của bạn.');
             setIsResendDisabled(true);
             setCountdown(50);
         } else {
@@ -117,9 +116,10 @@ export default function ForgotPassword({ setIsForgotPassWord }) {
             {status === 1 ? (
                 <form onSubmit={handleForgetPassword} noValidate>
                     <div className="w-full flex flex-col">
-                        <h1 className="text-6xl font-extrabold mb-4 uppercase">Forgot password ?</h1>
+                        <h1 className="text-6xl font-extrabold mb-4 uppercase">Quên Mật Khẩu ?</h1>
                         <p className="my-3 text-[var(--text-color)] text-[16px] font-semibold">
-                            No worries, we'll send you reset instructions.
+                            Đừng lo lắng, chúng tôi sẽ giúp bạn lấy lại quyền truy cập vào tài khoản của mình chỉ với
+                            một vài thao tác đơn giản.
                         </p>
 
                         <div className="mt-8 mb-2 flex flex-col">
@@ -128,7 +128,7 @@ export default function ForgotPassword({ setIsForgotPassWord }) {
                                 type="email"
                                 name="email"
                                 value={form.email}
-                                placeholder="Enter your email"
+                                placeholder="Email của bạn"
                                 onChange={handleInputChange}
                                 variant="register_login"
                                 error={errors.email}
@@ -142,7 +142,7 @@ export default function ForgotPassword({ setIsForgotPassWord }) {
                                     value={form.otp}
                                     onChange={handleInputChange}
                                     onKeyDown={handleKeyDown}
-                                    placeholder="Enter your code"
+                                    placeholder="Nhập mã OTP"
                                     variant="register_login"
                                     error={errors.otp}
                                     errorClassName={'pt-[4px] text-[1rem] min-h-[1.9rem]'}
@@ -156,28 +156,28 @@ export default function ForgotPassword({ setIsForgotPassWord }) {
                                 >
                                     {isResendDisabled ? (
                                         <p>
-                                            Send again <span className="ml-1">{countdown}</span>
+                                            Gửi lại mã <span className="ml-1">{countdown}</span>
                                         </p>
                                     ) : (
-                                        <p>Send code</p>
+                                        <p>Gửi mã</p>
                                     )}
                                 </Button>
                             </div>
                         </div>
 
                         <p className="my-3 text-[#6f7882] text-[14px]">
-                            By changing your password, you agree to our{' '}
+                            Với việc thay đổi mật khẩu, bạn đã đồng ý với{' '}
                             <Link href="#" className="font-semibold text-black underline">
-                                Term of Service
+                                Điều khoản dịch vụ
                             </Link>{' '}
-                            and{' '}
+                            và{' '}
                             <Link href="#" className="font-semibold text-black underline">
-                                Privacy Policy.
+                                Chính sách bảo mật
                             </Link>
                         </p>
 
-                        <Button type="submit" variant="auth">
-                            Reset Your Password
+                        <Button type="submit" variant="auth" className="my-8">
+                            Đặt lại mật khẩu
                         </Button>
 
                         <div className="flex justify-between mt-4">
@@ -189,10 +189,10 @@ export default function ForgotPassword({ setIsForgotPassWord }) {
                                     icon={faArrowLeft}
                                     className="w-7 h-7 mr-3 text-[var(--primary-color)]"
                                 />
-                                Back to Log In
+                                Quay lại đăng nhập
                             </button>
                             <Link href="./register" className="text-[var(--primary-color)] text-[14px]">
-                                Register an Account
+                                Đăng ký tài khoản
                             </Link>
                         </div>
                     </div>
@@ -200,18 +200,18 @@ export default function ForgotPassword({ setIsForgotPassWord }) {
             ) : status === 2 ? (
                 <form onSubmit={handleForgetPassword} noValidate>
                     <div className="w-full flex flex-col">
-                        <h1 className="text-6xl font-extrabold mb-4 uppercase">Set new password</h1>
+                        <h1 className="text-6xl font-extrabold mb-4 uppercase">Đặt lại mật khẩu</h1>
                         <p className="my-3 text-[var(--text-color)] text-[16px] font-semibold">
-                            Enter your new password to continue exploring BotCV.
+                            Đặt lại mật khẩu của bạn để tiếp tục sử dụng tài khoản.
                         </p>
 
                         <div className="mt-8 mb-2 flex flex-col">
-                            <span className="mb-4 font-[600]">Password</span>
+                            <span className="mb-4 font-[600]">Mật khẩu</span>
                             <Input
                                 type="password"
                                 name="password"
                                 value={form.password}
-                                placeholder="Enter your password"
+                                placeholder="Mật khẩu mới của bạn"
                                 onChange={handleInputChange}
                                 variant="register_login"
                                 error={errors.password}
@@ -219,16 +219,16 @@ export default function ForgotPassword({ setIsForgotPassWord }) {
                                 hide="true"
                             />
                             <ul className="text-[12px] text-[var(--text-color)] font-semibold mt-1 mb-2">
-                                <li>Password needs above 6 letters.</li>
-                                <li>Password must include uppercase letters, lowercase letters, and numbers.</li>
+                                <li>Mật khẩu cần ít nhất 6 ký tự</li>
+                                <li>Mật khẩu cần bao gồm chữ cái viết hoa, viết thường và số</li>
                             </ul>
 
-                            <span className="mb-4 mt-2 font-[600]">Confirm Password</span>
+                            <span className="mb-4 mt-2 font-[600]">Xác nhận mật khẩu mới</span>
                             <Input
                                 type="password"
                                 name="confirmPassword"
                                 value={form.confirmPassword}
-                                placeholder="Enter your password again"
+                                placeholder="Nhập lại mật khẩu mới của bạn"
                                 onChange={handleInputChange}
                                 variant="register_login"
                                 error={errors.confirmPassword}
@@ -238,18 +238,18 @@ export default function ForgotPassword({ setIsForgotPassWord }) {
                         </div>
 
                         <p className="mb-3 text-[#6f7882] text-[14px]">
-                            By changing your password, you agree to our{' '}
+                            Với việc thay đổi mật khẩu, bạn đã đồng ý với{' '}
                             <Link href="#" className="font-semibold text-black underline">
-                                Term of Service
+                                Điều khoản dịch vụ
                             </Link>{' '}
-                            and{' '}
+                            và{' '}
                             <Link href="#" className="font-semibold text-black underline">
-                                Privacy Policy.
+                                Chính sách bảo mật.
                             </Link>
                         </p>
 
-                        <Button type="submit" variant="auth">
-                            Reset Your Password
+                        <Button type="submit" variant="auth" className="my-8">
+                            Đặt lại mật khẩu
                         </Button>
 
                         <div className="flex justify-between mt-4">
@@ -261,10 +261,10 @@ export default function ForgotPassword({ setIsForgotPassWord }) {
                                     icon={faArrowLeft}
                                     className="w-7 h-7 mr-3 text-[var(--primary-color)]"
                                 />
-                                Back to Log In
+                                Quay lại đăng nhập
                             </button>
                             <Link href="./register" className="text-[var(--primary-color)] text-[14px]">
-                                Register an Account
+                                Đăng ký tài khoản
                             </Link>
                         </div>
                     </div>
@@ -279,12 +279,12 @@ export default function ForgotPassword({ setIsForgotPassWord }) {
                         className="object-cover"
                         priority
                     />
-                    <h1 className="mt-15 text-7xl font-semibold">Password Changed!</h1>
+                    <h1 className="mt-15 text-7xl font-semibold">Đổi mật khẩu hoàn tất!</h1>
                     <p className="my-5 mb-16 text-[var(--text-color)] text-[16px] font-semibold">
-                        You've successfully finished your password reset.
+                        Bạn đã thay đổi mật khẩu thành công!
                     </p>
-                    <Button onClick={handleBackToLogin} variant="auth" className="mb-20">
-                        What Are You Waiting For? Log In Now!
+                    <Button onClick={handleBackToLogin} variant="auth" className="mb-20 my-8">
+                        Bạn đang chờ gì nữa ? Đăng nhập ngay!
                     </Button>
                 </div>
             ) : (

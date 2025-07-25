@@ -2,12 +2,17 @@
 
 :root {
     --primary-color: #f05123;
+    --notification-color: #da4538;
     --invalid-color: #f33a58;
     --invalid-bg-color: #eedce4;
     --text-color: rgb(155, 155, 155);
     --disabled-btn: #ccc;
     --disabled-text-btn: #757575;
+    --recuitment-color: #00b14f;
     --header-height: 74px;
+    --carousel-height: 300px;
+    --search-bar-height: 60px;
+    --top-section-width: 960px;
 }
 
 @layer base {
@@ -19,7 +24,7 @@
         box-sizing: border-box;
         font-family: 'Montserrat', sans-serif;
         font-optical-sizing: auto;
-        font-size: 1.6rem;
+        font-size: 1.4rem;
         line-height: 1.5;
         text-rendering: optimizeSpeed;
     }
@@ -113,4 +118,9 @@
 
 .animated-leftToRight {
     animation: fromLeftToRight 1.5s ease-out forwards;
+}
+
+.paddingContainer {
+    padding-left: 120px;
+    padding-right: 120px;
 }

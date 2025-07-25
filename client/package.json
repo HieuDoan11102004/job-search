@@ -11,15 +11,21 @@
     "dependencies": {
         "@fortawesome/fontawesome-svg-core": "^6.7.2",
         "@fortawesome/free-brands-svg-icons": "^6.7.2",
+        "@fortawesome/free-regular-svg-icons": "^6.7.2",
         "@fortawesome/free-solid-svg-icons": "^6.7.2",
         "@fortawesome/react-fontawesome": "^0.2.2",
         "@nextui-org/react": "^2.6.11",
         "clsx": "^2.1.1",
+        "date-fns": "^4.1.0",
         "next": "15.3.0",
         "react": "^19.0.0",
         "react-dom": "^19.0.0",
+        "react-paginate": "^8.3.0",
+        "react-slick": "^0.30.3",
         "react-toastify": "^11.0.5",
-        "reset-css": "^5.0.2"
+        "reset-css": "^5.0.2",
+        "slick-carousel": "^1.8.1",
+        "sweetpagination": "^1.0.15"
     },
     "devDependencies": {
         "@eslint/eslintrc": "^3",

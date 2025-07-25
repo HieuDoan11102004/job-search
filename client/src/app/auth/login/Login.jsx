@@ -5,7 +5,6 @@ import Image from 'next/image';
 import Button from '@/app/components/button';
 import Loading from '@/app/components/loading/loading';
 import Input from '@/app/components/input';
-import showToast from '@/app/components/Toastify.js';
 import validateField from '@/app/components/validatedInput';
 import ForgotPassword from './ForgotPassword';
 import { useRouter } from 'next/navigation';
@@ -69,9 +68,9 @@ export default function Login() {
 
                         <div className="absolute flex right-[4rem] translate-y-[75%] uppercase opacity-80">
                             <h1 className="text-white text-8xl font-bold animated-leftToRight">
-                                We meet
+                                Bạn Đã
                                 <br />
-                                again!
+                                Trở Lại!
                             </h1>
                             <div className="ml-[4rem] bg-white block w-[2rem]"></div>
                         </div>
@@ -83,10 +82,10 @@ export default function Login() {
                         ) : (
                             <form action="" onSubmit={handleLogin} noValidate>
                                 <div className="w-full flex flex-col">
-                                    <h1 className="text-6xl font-extrabold mb-4 uppercase">Sign in to BotCV</h1>
+                                    <h1 className="text-6xl font-extrabold mb-4 uppercase">ĐĂNG NHẬP</h1>
                                     <p className="my-3 text-[var(--text-color)] text-[14px] font-semibold">
-                                        Step into your future today — Log in to BotCV and let your dream job find you.
-                                        With just one click, endless opportunities await. Let's the job chase you!
+                                        Chào mừng bạn trở lại với BotCV, một trong những nền tảng tìm kiếm việc làm hàng
+                                        đầu Việt Nam - nơi khởi đầu cho hành trình sự nghiệp của bạn!
                                     </p>
 
                                     <div className="mt-7 mb-2 flex flex-col">
@@ -95,18 +94,18 @@ export default function Login() {
                                             type="email"
                                             name="email"
                                             onChange={handleInputChange}
-                                            placeholder="Enter your email"
+                                            placeholder="Email của bạn"
                                             error={errors.email}
                                             variant="register_login"
                                             errorClassName={'pt-[4px] text-[1rem] min-h-[1.9rem]'}
                                         />
 
-                                        <span className="mt-1 mb-4 font-[600]">Password</span>
+                                        <span className="mt-1 mb-4 font-[600]">Mật khẩu</span>
                                         <Input
                                             type="password"
                                             name="password"
                                             onChange={handleInputChange}
-                                            placeholder="Enter your password"
+                                            placeholder="Mật khẩu của bạn"
                                             error={errors.password}
                                             variant="register_login"
                                             errorClassName={'pt-[4px] text-[1rem] min-h-[1.9rem]'}
@@ -115,9 +114,9 @@ export default function Login() {
                                     </div>
 
                                     <p className="text-[#6f7882] text-[14px] my-3">
-                                        Don't have an account?{' '}
+                                        Chưa có tài khoản?{' '}
                                         <Link href="./register" className="text-black underline font-semibold ml-1">
-                                            Create an Account
+                                            Tạo tài khoản BotCV
                                         </Link>
                                     </p>
                                     <div className="flex justify-between my-3 items-center text-[14px]">
@@ -136,7 +135,7 @@ export default function Login() {
                                                     htmlFor="remember"
                                                     className="ml-3 text-[black] text-[14px] font-semibold select-none"
                                                 >
-                                                    Remember for 30 days
+                                                    Ghi nhớ đăng nhập trong 30 ngày
                                                 </span>
                                             </label>
                                         </div>
@@ -144,16 +143,16 @@ export default function Login() {
                                             onClick={() => setIsForgotPassWord(true)}
                                             className="underline cursor-pointer"
                                         >
-                                            <span>Forgot your password?</span>
+                                            <span>Quên mật khẩu?</span>
                                         </div>
                                     </div>
                                     <Button type="submit" variant="auth" className="my-8 text-white">
-                                        Sign In — Continue Your Career Journey with BotCV
+                                        Đăng nhập — Tiếp tục hành trình tìm kiếm việc làm với BotCV
                                     </Button>
                                 </div>
                                 <div className="flex items-center w-full">
                                     <div className="flex-grow h-px bg-gray-400"></div>
-                                    <span className="px-7 text-gray-500 text-[14px]">Or</span>
+                                    <span className="px-7 text-gray-500 text-[14px]">Hoặc</span>
                                     <div className="flex-grow h-px bg-gray-400"></div>
                                 </div>
                                 <div className="flex items-center justify-center my-7">
